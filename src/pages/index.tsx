@@ -4,9 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { CircleNotch, X } from 'phosphor-react'
+import { ArrowRight, CircleNotch, X } from 'phosphor-react'
 import { useState } from 'react'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
 import { z } from 'zod'
 
@@ -21,8 +21,8 @@ const HomePage: NextPage = ({}) => {
   const { t: tForm } = useTranslation('form')
   const [search, setSearch] = useState('')
   const {
-    control,
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm<UserFormProps>({
     resolver: zodResolver(createUserFormSchema),
@@ -38,8 +38,7 @@ const HomePage: NextPage = ({}) => {
     },
     {
       refetchOnWindowFocus: false,
-      staleTime: 1000 * 60 * 60 * 24,
-      cacheTime: 1000 * 60 * 60 * 24,
+      cacheTime: 60000,
     }
   )
 
@@ -52,17 +51,11 @@ const HomePage: NextPage = ({}) => {
       <h1 className="text-3xl">{t('hello', { name: githubUser?.name })}</h1>
       {!githubUser?.name && (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name="username"
-            control={control}
-            render={({ field: { ref, ...rest } }) => (
-              <Input
-                placeholder="Username"
-                type="text"
-                error={tForm(errors.username?.message as string)}
-                {...rest}
-              />
-            )}
+          <Input
+            placeholder="Username"
+            type="text"
+            error={tForm(errors.username?.message as string)}
+            {...register('username')}
           />
         </form>
       )}
