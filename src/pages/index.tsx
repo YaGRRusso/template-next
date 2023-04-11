@@ -1,5 +1,6 @@
 import { Input } from '@/components'
 import { getUser } from '@/services/github'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -7,10 +8,13 @@ import { CircleNotch, X } from 'phosphor-react'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
+import { z } from 'zod'
 
-type FormValueProps = {
-  username: string
-}
+const createUserFormSchema = z.object({
+  username: z.string().min(3, 'minLength'),
+})
+
+type UserFormProps = z.infer<typeof createUserFormSchema>
 
 const HomePage: NextPage = ({}) => {
   const { t } = useTranslation('common')
@@ -20,7 +24,8 @@ const HomePage: NextPage = ({}) => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValueProps>({
+  } = useForm<UserFormProps>({
+    resolver: zodResolver(createUserFormSchema),
     defaultValues: {
       username: 'YaGRRusso',
     },
@@ -38,7 +43,7 @@ const HomePage: NextPage = ({}) => {
     }
   )
 
-  const onSubmit: SubmitHandler<FormValueProps> = ({ username }) => {
+  const onSubmit: SubmitHandler<UserFormProps> = ({ username }) => {
     setSearch(username)
   }
 
@@ -50,16 +55,6 @@ const HomePage: NextPage = ({}) => {
           <Controller
             name="username"
             control={control}
-            rules={{
-              required: {
-                value: true,
-                message: 'required',
-              },
-              minLength: {
-                value: 3,
-                message: 'minLength',
-              },
-            }}
             render={({ field: { ref, ...rest } }) => (
               <Input
                 placeholder="Username"
