@@ -13,7 +13,10 @@ import { useQuery } from 'react-query'
 import { z } from 'zod'
 
 const createUserFormSchema = z.object({
-  username: z.string().min(3, 'minLength'),
+  username: z
+    .string()
+    .min(3, 'minLength')
+    .transform((username) => username.trim().replace(/\s/g, '')),
 })
 
 type UserFormProps = z.infer<typeof createUserFormSchema>
@@ -45,7 +48,8 @@ const HomePage: NextPage = ({}) => {
   )
 
   const onSubmit: SubmitHandler<UserFormProps> = ({ username }) => {
-    setSearch(username)
+    // setSearch(username)
+    console.log(username)
   }
 
   return (
