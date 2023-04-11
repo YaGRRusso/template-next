@@ -4,7 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { ArrowRight, CircleNotch, X } from 'phosphor-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { CircleNotch, X } from 'phosphor-react'
 import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
@@ -47,25 +49,38 @@ const HomePage: NextPage = ({}) => {
   }
 
   return (
-    <div className="flex gap-2">
-      <h1 className="text-3xl">{t('hello', { name: githubUser?.name })}</h1>
-      {!githubUser?.name && (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            placeholder="Username"
-            type="text"
-            error={tForm(errors.username?.message as string)}
-            {...register('username')}
+    <div className="flex flex-col items-center justify-center gap-6">
+      {githubUser?.avatar_url && (
+        <Link href={githubUser.html_url} target="_blank">
+          <Image
+            alt="user"
+            src={githubUser.avatar_url}
+            width={128}
+            height={128}
+            className="rounded-xl border border-gray-500 transition-all hover:border-gray-400 active:scale-95"
           />
-        </form>
+        </Link>
       )}
-      {isGithubUserLoading && <CircleNotch className="animate-spin" />}
-      {githubUser?.name && githubUser?.html_url && (
-        <X
-          className="cursor-pointer text-gray-500 transition-colors hover:text-gray-400"
-          onClick={() => setSearch('')}
-        />
-      )}
+      <div className="flex gap-2">
+        <h1 className="text-3xl">{t('hello', { name: githubUser?.name })}</h1>
+        {!githubUser?.name && (
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              placeholder="Username"
+              type="text"
+              error={tForm(errors.username?.message as string)}
+              {...register('username')}
+            />
+          </form>
+        )}
+        {isGithubUserLoading && <CircleNotch className="animate-spin" />}
+        {githubUser?.name && githubUser?.html_url && (
+          <X
+            className="cursor-pointer text-gray-500 transition-colors hover:text-gray-400"
+            onClick={() => setSearch('')}
+          />
+        )}
+      </div>
     </div>
   )
 }

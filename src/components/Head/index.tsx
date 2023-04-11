@@ -16,7 +16,7 @@ const HeadLayout = ({ title, description, tags }: HeadProps) => {
       <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
       <meta name="description" content={description} />
       <meta name="keywords" content={tags?.join(', ')} />
-      <meta name="author" content="Coaktion" />
+      <meta name="author" content="YaGRRusso" />
 
       <meta property="og:title" content={title} key="title" />
       <meta property="og:image" content="/favicon.ico" />

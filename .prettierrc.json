@@ -3,10 +3,11 @@
   "semi": false,
   "singleQuote": true,
   "importOrder": [
-    "^@components",
+    "^@components/(.*)$",
     "^@contexts/(.*)$",
     "^@layouts/(.*)$",
     "^@pages/(.*)$",
+    "^@services/(.*)$",
     "^@styles/(.*)$",
     "^[./]"
   ],
