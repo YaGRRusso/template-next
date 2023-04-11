@@ -1,18 +1,36 @@
+import { Input } from '@/components'
 import { getUser } from '@/services/github'
 import { GetStaticProps, NextPage } from 'next'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { CircleNotch } from 'phosphor-react'
+import { CircleNotch, X } from 'phosphor-react'
 import { useState } from 'react'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useQuery } from 'react-query'
+
+type FormValueProps = {
+  username: string
+}
 
 const HomePage: NextPage = ({}) => {
   const { t } = useTranslation('common')
-  const [search, setSearch] = useState('yagrrusso')
+  const { t: tForm } = useTranslation('form')
+  const [search, setSearch] = useState('')
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValueProps>({
+    defaultValues: {
+      username: 'YaGRRusso',
+    },
+  })
 
   const { data: githubUser, isLoading: isGithubUserLoading } = useQuery(
     ['user', search],
-    () => getUser(search),
+    () => {
+      if (search) return getUser(search)
+    },
     {
       refetchOnWindowFocus: false,
       staleTime: 1000 * 60 * 60 * 24,
@@ -20,12 +38,45 @@ const HomePage: NextPage = ({}) => {
     }
   )
 
+  const onSubmit: SubmitHandler<FormValueProps> = ({ username }) => {
+    setSearch(username)
+  }
+
   return (
-    <div className="text-3xl">
-      {isGithubUserLoading ? (
-        <CircleNotch className="animate-spin" />
-      ) : (
-        <h1>{t('hello', { name: githubUser?.name })}</h1>
+    <div className="flex gap-2">
+      <h1 className="text-3xl">{t('hello', { name: githubUser?.name })}</h1>
+      {!githubUser?.name && (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Controller
+            name="username"
+            control={control}
+            rules={{
+              required: {
+                value: true,
+                message: 'required',
+              },
+              minLength: {
+                value: 3,
+                message: 'minLength',
+              },
+            }}
+            render={({ field: { ref, ...rest } }) => (
+              <Input
+                placeholder="Username"
+                type="text"
+                error={tForm(errors.username?.message as string)}
+                {...rest}
+              />
+            )}
+          />
+        </form>
+      )}
+      {isGithubUserLoading && <CircleNotch className="animate-spin" />}
+      {githubUser?.name && githubUser?.html_url && (
+        <X
+          className="cursor-pointer text-gray-500 transition-colors hover:text-gray-400"
+          onClick={() => setSearch('')}
+        />
       )}
     </div>
   )
@@ -36,7 +87,7 @@ export default HomePage
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
-      ...(await serverSideTranslations(locale as string, ['common'])),
+      ...(await serverSideTranslations(locale as string, ['common', 'form'])),
     },
   }
 }
