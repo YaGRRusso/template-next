@@ -25,9 +25,11 @@ const HomePage: NextPage = ({}) => {
   const { t } = useTranslation('common')
   const { t: tForm } = useTranslation('form')
   const [search, setSearch] = useState('')
+
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm<UserFormProps>({
     resolver: zodResolver(createUserFormSchema),
@@ -67,16 +69,19 @@ const HomePage: NextPage = ({}) => {
       )}
       <div className="flex gap-2">
         <h1 className="text-3xl">{t('hello', { name: githubUser?.name })}</h1>
+
         {!githubUser?.name && (
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               placeholder="Username"
               type="text"
               error={tForm(errors.username?.message as string)}
+              // value={phoneMask.resolve(watch('username'))}
               {...register('username')}
             />
           </form>
         )}
+
         {isGithubUserLoading && <CircleNotch className="animate-spin" />}
         {githubUser?.name && githubUser?.html_url && (
           <X
