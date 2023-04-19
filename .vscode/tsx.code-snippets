@@ -56,22 +56,5 @@
       ""
     ],
     "description": "Create NextJS page with all is necessary"
-  },
-  "Create UseForm Controller": {
-    "scope": "typescriptreact",
-    "prefix": "useformcontroller",
-    "body": [
-      "<Controller",
-      "  name=\"${1}\"",
-      "  control={control}",
-      "  rules={{",
-      "    ${2}",
-      "  }}",
-      "  render={({ field: { ref, ...rest } }) => (",
-      "    ${3}",
-      "  )}",
-      "/>"
-    ],
-    "description": "Create UseForm Controller with all is necessary"
   }
 }
