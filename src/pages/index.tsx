@@ -29,7 +29,6 @@ const HomePage: NextPage = ({}) => {
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors },
   } = useForm<UserFormProps>({
     resolver: zodResolver(createUserFormSchema),

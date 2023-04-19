@@ -7,7 +7,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   asChild?: boolean
 }
 
-const Input = forwardRef<InputProps, any>(
+const Input = forwardRef<any, InputProps>(
   ({ error, asChild, children, className, ...rest }, ref) => {
     const Comp = asChild ? Slot : 'input'
 
