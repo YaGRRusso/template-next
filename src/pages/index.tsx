@@ -49,7 +49,7 @@ const HomePage: NextPage = ({}) => {
   )
 
   const onSubmit: SubmitHandler<UserFormProps> = ({ username }) => {
-    // setSearch(username)
+    setSearch(username)
     console.log(username)
   }
 
@@ -66,8 +66,10 @@ const HomePage: NextPage = ({}) => {
           />
         </Link>
       )}
-      <div className="flex gap-2">
-        <h1 className="text-3xl">{t('hello', { name: githubUser?.name })}</h1>
+      <div className="flex flex-wrap items-center gap-2">
+        <h1 className="flex-1 text-3xl">
+          {t('hello', { name: githubUser?.name })}
+        </h1>
 
         {!githubUser?.name && (
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -83,10 +85,12 @@ const HomePage: NextPage = ({}) => {
 
         {isGithubUserLoading && <CircleNotch className="animate-spin" />}
         {githubUser?.name && githubUser?.html_url && (
-          <X
-            className="cursor-pointer text-gray-500 transition-colors hover:text-gray-400"
+          <button
+            className="text-gray-500 transition-colors hover:text-gray-400"
             onClick={() => setSearch('')}
-          />
+          >
+            <X />
+          </button>
         )}
       </div>
     </div>

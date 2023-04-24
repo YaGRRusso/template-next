@@ -1,38 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next Template
 
-## Getting Started
+![Node](https://shields.io/badge/Node-v18-339933?logo=node.js&style=flat-square)
+![NPM](https://shields.io/badge/NPM-v8-CB3837?logo=npm&style=flat-square)
 
-First, run the development server:
+## 💻 Tecnologias do Projeto
+
+Documentação de todas as tecnologias utilizadas no projeto para consulta
+
+- [Next (v13)](https://nextjs.org/docs/getting-started)
+
+- [React (v18)](https://pt-br.reactjs.org/docs/getting-started.html)
+
+- [Typescript (v5)](https://www.typescriptlang.org/docs)
+
+- [Tailwind (v3)](https://stitches.dev/docs/introduction)
+
+- [React Query (v3)](https://react-query-v3.tanstack.com/overview)
+
+- [Next-i18Next (v13)](https://github.com/i18next/next-i18next)
+
+- [Zod (v3)](https://zod.dev/?id=introduction)
+
+## 🚀 Recursos
+
+Recursos presentes no template para próximos projetos
+
+- [x] Padronização e Configuração de Códigos e Pastas
+- [x] Temas de Estilos
+- [x] Internacionalização
+- [x] Hooks e Contextos
+- [x] Error Boundary
+- [x] React Query
+- [x] Hooks, Schemas e Máscaras de Formulários
+
+## ⚙️ Instalando o Projeto
+
+Passo a passo para a instalação do projeto e suas dependências
+
+- Instalar dependências
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+$ npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 💿 Rodando o Projeto
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Comandos utilizados para rodar o projeto, para mais informações acesse o arquivo `package.json`
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- Rodar em modo de desenvolvimento
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+$ npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Gerar o build do projeto
 
-## Learn More
+```bash
+$ npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+- Atualizar dependências
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+$ npm update
+```

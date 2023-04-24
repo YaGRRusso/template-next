@@ -15,7 +15,7 @@ const Input = forwardRef<any, InputProps>(
       <div className="flex flex-col gap-1">
         <Comp
           className={clsx(
-            'rounded bg-gray-200 px-4 py-2 text-lg placeholder:text-slate-600 dark:bg-slate-800 dark:text-slate-200',
+            'w-full rounded bg-gray-200 px-4 py-2 text-lg placeholder:text-slate-600 dark:bg-slate-800 dark:text-slate-200',
             className
           )}
           ref={ref}

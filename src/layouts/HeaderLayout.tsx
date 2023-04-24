@@ -3,13 +3,25 @@ import { useThemeContext } from '@/contexts/ThemeContext'
 import clsx from 'clsx'
 import { NextPage } from 'next'
 import Link from 'next/link'
-import { MoonStars, Sun } from 'phosphor-react'
+import { useRouter } from 'next/router'
+import { MoonStars, Sun, Translate } from 'phosphor-react'
 import { HTMLAttributes, useMemo } from 'react'
 
 export interface HeaderLayoutProps extends HTMLAttributes<HTMLDivElement> {}
 
 const HeaderLayout: NextPage<HeaderLayoutProps> = ({ children }) => {
   const { theme, toggleTheme } = useThemeContext()
+  const router = useRouter()
+
+  const nextLang = useMemo(() => {
+    switch (router.locale) {
+      case 'pt-BR':
+        return 'en-US'
+      case 'en-US':
+        return 'pt-BR'
+    }
+    console.log(router.locale)
+  }, [router])
 
   const currentTheme = useMemo(() => {
     return theme === 'dark' ? 'dark bg-slate-900 text-slate-100' : ''
@@ -17,27 +29,23 @@ const HeaderLayout: NextPage<HeaderLayoutProps> = ({ children }) => {
 
   return (
     <div className={clsx('flex min-h-screen flex-col', currentTheme)}>
-      <header className="container flex items-center justify-between py-4">
-        <span>Header</span>
-        <button onClick={toggleTheme} className="text-xl">
-          {theme === 'dark' ? <MoonStars /> : <Sun />}
-        </button>
+      <header className="container flex items-center justify-center gap-6 py-6">
+        <Link href="https://github.com/YaGRRusso/template-next" target="_blank">
+          Template NextJS
+        </Link>
       </header>
-      <div className="container flex flex-1 items-center justify-center py-4">
+      <div className="container flex flex-1 items-center justify-center py-6">
         <ErrorBoundary>
           <>{children}</>
         </ErrorBoundary>
       </div>
-      <footer className="container flex items-center justify-between py-4">
-        <span>Footer</span>
-        <div className="flex items-center gap-4">
-          <Link href="" locale="pt-br">
-            🇧🇷
-          </Link>
-          <Link href="" locale="en-us">
-            🇺🇸
-          </Link>
-        </div>
+      <footer className="container flex items-center justify-center gap-6 py-6 text-xl">
+        <button onClick={toggleTheme}>
+          {theme === 'dark' ? <MoonStars /> : <Sun />}
+        </button>
+        <Link href="" locale={nextLang}>
+          <Translate />
+        </Link>
       </footer>
     </div>
   )
