@@ -19,7 +19,11 @@ Documentação de todas as tecnologias utilizadas no projeto para consulta
 
 - [Next-i18Next (v13)](https://github.com/i18next/next-i18next)
 
+- [React Hook Form (v7)](https://react-hook-form.com/get-started)
+
 - [Zod (v3)](https://zod.dev/?id=introduction)
+
+- [IMask (v6)](https://imask.js.org/guide.html#getting-started)
 
 ## 🚀 Recursos
 
