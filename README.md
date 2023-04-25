@@ -47,6 +47,12 @@ Passo a passo para a instalação do projeto e suas dependências
 $ npm install
 ```
 
+- Atualizar dependências
+
+```bash
+$ npm update
+```
+
 ## 💿 Rodando o Projeto
 
 Comandos utilizados para rodar o projeto, para mais informações acesse o arquivo `package.json`
@@ -61,10 +67,4 @@ $ npm run dev
 
 ```bash
 $ npm run build
-```
-
-- Atualizar dependências
-
-```bash
-$ npm update
 ```
