@@ -29,6 +29,7 @@ const HomePage: NextPage = ({}) => {
   const {
     handleSubmit,
     register,
+    // watch,
     formState: { errors },
   } = useForm<UserFormProps>({
     resolver: zodResolver(createUserFormSchema),
@@ -77,7 +78,10 @@ const HomePage: NextPage = ({}) => {
               placeholder="Username"
               type="text"
               error={tForm(errors.username?.message as string)}
-              // value={phoneMask.resolve(watch('username'))}
+              // value={mask(watch('username'), [
+              //   '000.000.000-00',
+              //   '000.000.000/0000-00',
+              // ])}
               {...register('username')}
             />
           </form>

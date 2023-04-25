@@ -1,13 +1,30 @@
-// 0 - any digit
-// a - any letter
-// * - any char
-// [] - make input optional
-// {} - include fixed part in unmasked value
-// ` - prevent symbols shift back
 import IMask from 'imask'
 
-export const clearMask = /[^a-zA-Z0-9\s]/g
+const clearMask = (value: string) => value.replace(/[^a-zA-Z0-9\s]/g, '')
 
-export const phoneMask = IMask.createMask({
-  mask: '(00) 00000-0000',
-})
+/**
+ * Mask a string into a IMask pattern
+ * @param value String that will be masked
+ * @param masks 0 as Digit, a as Letter, * as Any, [] as Optional, {} as Fixed
+ * @returns Masked string
+ */
+export const mask = (value: string | undefined, masks: string | string[]) => {
+  if (value) {
+    if (typeof masks === 'string') masks = [masks]
+
+    if (masks.length > 1) {
+      masks.sort((a, b) => clearMask(a).length - clearMask(b).length)
+      for (const mask of masks) {
+        if (clearMask(value).length <= clearMask(mask).length) {
+          return IMask.createMask({
+            mask,
+          }).resolve(value)
+        }
+      }
+    }
+
+    return IMask.createMask({
+      mask: masks[masks.length - 1],
+    }).resolve(value)
+  }
+}
