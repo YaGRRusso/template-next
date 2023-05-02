@@ -55,47 +55,49 @@ const HomePage: NextPage = ({}) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center gap-6">
-      {githubUser?.avatar_url && (
-        <Link href={githubUser.html_url} target="_blank">
-          <Image
-            alt="user"
-            src={githubUser.avatar_url}
-            width={128}
-            height={128}
-            className="rounded-xl border border-gray-500 transition-all hover:border-gray-400 active:scale-95"
-          />
-        </Link>
-      )}
-      <div className="flex flex-wrap items-center gap-2">
-        <h1 className="flex-1 text-3xl">
-          {t('hello', { name: githubUser?.name })}
-        </h1>
-
-        {!githubUser?.name && (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              placeholder="Username"
-              type="text"
-              error={tForm(errors.username?.message as string)}
-              // value={mask(watch('username'), [
-              //   '000.000.000-00',
-              //   '000.000.000/0000-00',
-              // ])}
-              {...register('username')}
+    <div className="container-center container">
+      <div className="flex flex-col items-center justify-center gap-6">
+        {githubUser?.avatar_url && (
+          <Link href={githubUser.html_url} target="_blank">
+            <Image
+              alt="user"
+              src={githubUser.avatar_url}
+              width={128}
+              height={128}
+              className="rounded-xl border border-gray-500 transition-all hover:border-gray-400 active:scale-95"
             />
-          </form>
+          </Link>
         )}
+        <div className="flex flex-wrap items-center gap-2">
+          <h1 className="flex-1 text-3xl">
+            {t('hello', { name: githubUser?.name })}
+          </h1>
 
-        {isGithubUserLoading && <CircleNotch className="animate-spin" />}
-        {githubUser?.name && githubUser?.html_url && (
-          <button
-            className="text-gray-500 transition-colors hover:text-gray-400"
-            onClick={() => setSearch('')}
-          >
-            <X />
-          </button>
-        )}
+          {!githubUser?.name && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                placeholder="Username"
+                type="text"
+                error={tForm(errors.username?.message as string)}
+                // value={mask(watch('username'), [
+                //   '000.000.000-00',
+                //   '000.000.000/0000-00',
+                // ])}
+                {...register('username')}
+              />
+            </form>
+          )}
+
+          {isGithubUserLoading && <CircleNotch className="animate-spin" />}
+          {githubUser?.name && githubUser?.html_url && (
+            <button
+              className="text-gray-500 transition-colors hover:text-gray-400"
+              onClick={() => setSearch('')}
+            >
+              <X />
+            </button>
+          )}
+        </div>
       </div>
     </div>
   )

@@ -34,11 +34,9 @@ const HeaderLayout: NextPage<HeaderLayoutProps> = ({ children }) => {
           Template NextJS
         </Link>
       </header>
-      <div className="container flex flex-1 items-center justify-center py-6">
-        <ErrorBoundary>
-          <>{children}</>
-        </ErrorBoundary>
-      </div>
+      <ErrorBoundary>
+        <>{children}</>
+      </ErrorBoundary>
       <footer className="container flex items-center justify-center gap-6 py-6 text-xl">
         <button onClick={toggleTheme}>
           {theme === 'dark' ? <MoonStars /> : <Sun />}

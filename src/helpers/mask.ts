@@ -1,13 +1,11 @@
 import IMask from 'imask'
 
-const clearMaskLength = (value: string) =>
-  value.replace(/[^a-zA-Z0-9\s]/g, '').length
-
-const createMask = (value: string, mask: string) => {
-  return IMask.createMask({
+const createMask = (value: string, mask: string) =>
+  IMask.createMask({
     mask,
   }).resolve(value)
-}
+
+export const clearMask = (mask: string) => mask.replace(/[^a-zA-Z0-9\s]/g, '')
 
 /**
  * Mask a string into a IMask pattern
@@ -20,9 +18,9 @@ export const mask = (value: string | undefined, masks: string | string[]) => {
     if (typeof masks === 'string') return createMask(value, masks)
 
     if (masks.length > 1) {
-      masks.sort((a, b) => clearMaskLength(a) - clearMaskLength(b))
+      masks.sort((a, b) => clearMask(a).length - clearMask(b).length)
       for (const mask of masks) {
-        if (clearMaskLength(value) <= clearMaskLength(mask)) {
+        if (clearMask(value).length <= clearMask(mask).length) {
           return createMask(value, mask)
         }
       }

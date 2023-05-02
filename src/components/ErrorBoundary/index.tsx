@@ -16,17 +16,19 @@ class ErrorBoundary extends React.Component<ErrorProps> {
   render() {
     if (this.state.error) {
       return (
-        <div className="flex flex-col gap-6">
-          <div>
-            <h1 className="text-3xl">Oops, there is an error!</h1>
-            <span className="text-red-500">{this.state.error}</span>
+        <div className="container-center container">
+          <div className="flex flex-col gap-6">
+            <div>
+              <h1 className="text-3xl">Oops, there is an error!</h1>
+              <span className="text-red-500">{this.state.error}</span>
+            </div>
+            <button
+              className="w-52 rounded border border-gray-500 p-2 text-gray-500 transition-colors hover:border-gray-400 hover:text-gray-400"
+              onClick={() => this.setState({ error: null })}
+            >
+              Try Again
+            </button>
           </div>
-          <button
-            className="w-52 rounded border border-gray-500 p-2 text-gray-500 transition-colors hover:border-gray-400 hover:text-gray-400"
-            onClick={() => this.setState({ error: null })}
-          >
-            Try Again
-          </button>
         </div>
       )
     }
